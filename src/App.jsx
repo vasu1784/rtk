@@ -7,7 +7,7 @@ const App=()=>{
   return (
     <>
       <Header />
-      <CartLogger/>
+      <CartLogger />
       <Routes>
         <Route path="/" element={<Cards />} />
         <Route path="/cart" element={<CardsDetail />} />
