@@ -2,7 +2,7 @@ import Header from "./Components/Header";
 import { Routes,Route } from "react-router-dom";
 import Cards from "./Components/Cards";
 import CardsDetail from "./Components/CardsDetail"
-import CartLogger from "./Components/cartLoger";
+import CartLogger from "./Components/CartLogger";
 const App=()=>{
   return (
     <>
