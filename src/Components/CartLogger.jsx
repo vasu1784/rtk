@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-
 const CartLogger = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
 
