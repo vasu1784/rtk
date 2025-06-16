@@ -9,6 +9,13 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Menu from "@mui/material/Menu";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+
 const Header = () => {
 
     const cartItems = useSelector((state) => state.cart.cartItems || []);
@@ -77,65 +84,64 @@ console.log(totalQuantity, "totalQuantity");
                   sx: {
                     width: "800px",
                     padding: "10px",
+                    position: "relative",
                   },
                 },
               }}
             >
-              <div className="cartmenu">
+              <Box sx={{ position: "relative", p: 2 }}>
+                <IconButton
+                  onClick={handleClose}
+                  sx={{ position: "absolute", top: 8, right: 8 }}
+                  aria-label="close"
+                >
+                  <CloseIcon />
+                </IconButton>
                 {cartItems.length > 0 ? (
                   <>
-                    {cartItems.map((item) => (
-                      <div key={item.id} className="cart-dropdown-item">
-                        <img
-                          src={item.imgdata}
-                          alt={item.rname}
-                          width="80"
-                          height="80"
-                        />
-                        <div>
-                          <p>
-                            <strong>{item.rname}</strong>
-                          </p>
-                          <p>Qty: {item.qnty}</p>
-                          <p>single unit Amount ₹{item.price}</p>
-                          <p>
-                            <strong>Total</strong> : ₹{item.price * item.qnty}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                    <div
-                      style={{
-                        textAlign: "right",
-                        marginTop: "10px",
-                        padding: "0 10px",
-                      }}
-                    >
-                      <strong>Grand Total: ₹{totalAmount}</strong>
-                    </div>
+                    <Stack direction="row" spacing={2} alignItems="flex-start" divider={<Divider orientation="vertical" flexItem />}>
+                      {cartItems.map((item) => (
+                        <Box key={item.id} sx={{ minWidth: 200, maxWidth: 220, p: 1 }}>
+                          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <Box
+                              component="img"
+                              src={item.imgdata}
+                              alt={item.rname}
+                              sx={{ width: 80, height: 80, borderRadius: 2, mb: 1, objectFit: "cover", boxShadow: 1 }}
+                            />
+                            <Typography variant="subtitle1" fontWeight="bold" align="center">
+                              {item.rname}
+                            </Typography>
+                          </Box>
+                          <Typography variant="body2" sx={{ mt: 1 }}>Qty: {item.qnty}</Typography>
+                          <Typography variant="body2">single unit Amount <b>₹{item.price}</b></Typography>
+                          <Typography variant="body2" fontWeight="bold" sx={{ mt: 1 }}>
+                            Total : ₹{item.price * item.qnty}
+                          </Typography>
+                        </Box>
+                      ))}
+                    </Stack>
+                    <Divider sx={{ my: 2 }} />
+                    <Box sx={{ textAlign: "right", pr: 2 }}>
+                      <Typography variant="h6" fontWeight="bold">
+                        Grand Total: ₹{totalAmount}
+                      </Typography>
+                    </Box>
                   </>
                 ) : (
-                  <div style={{ textAlign: "center" }}>
-                    <p>Your cart is Empty</p>
-                    <img
+                  <Box sx={{ textAlign: "center", py: 4 }}>
+                    <Typography variant="h6" color="text.secondary" gutterBottom>
+                      Your cart is Empty
+                    </Typography>
+                    <Box
+                      component="img"
                       src="cart-empty.png"
                       alt="empty"
-                      style={{ width: "70px" }}
+                      sx={{ width: 70, opacity: 0.7 }}
                     />
-                  </div>
+                  </Box>
                 )}
-
-                <FontAwesomeIcon
-                  onClick={handleClose}
-                  icon={faSkullCrossbones}
-                  style={{
-                    position: "absolute",
-                    top: "3px",
-                    right: "8px",
-                    cursor: "pointer",
-                  }}
-                />
-              </div>
+              </Box>
             </Menu>
           </Nav>
         </Navbar.Collapse>
